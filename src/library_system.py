@@ -23,6 +23,12 @@ The status indicates whether the book is checked out or available. Default it to
 import datetime
 
 
+class StatusException(Exception):
+    """Custom exception for book-related errors."""
+
+    pass
+
+
 class Book:
     def __init__(
         self,
@@ -32,22 +38,37 @@ class Book:
         status: str = "available",
     ):
         # Initialize the book with title, author, year_of_publication, and status
+        self.title = title
+        self.author = author
+        self.year_of_publication = year_of_publication
+        self.status = status
         pass
 
     def checkout(self) -> None:
         # Mark the book as checked out, raise an exception if already checked out
+        if self.status == "Checked Out":
+            raise StatusException(
+                f"Error: The book '{self.title}' is already checked out."
+            )
         pass
 
     def checkin(self) -> None:
         # Mark the book as available, raise an exception if already available
+        if self.status == "Checked In":
+            raise StatusException(
+                f"Error: The book '{self.title}' is already checked in."
+            )
         pass
 
     def get_info(self) -> str:
         # Return the book's title, author, year_of_publication, and status as a formatted string
+        return f"{self.title} by {self.title} (Published: {self.year_of_publication}) - {self.status}"
         pass
 
     def is_checked_out(self) -> bool:
         # Return True if the book is checked out, else False
+        if self.status == "Checked Out":
+            return True
         pass
 
     @staticmethod
