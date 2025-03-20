@@ -24,7 +24,9 @@ import datetime
 
 
 class StatusException(Exception):
-    """Custom exception for book-related errors."""
+    def __init__(self, message):
+        self.message = message
+        super().__init__(self.message)
 
     pass
 
@@ -46,32 +48,39 @@ class Book:
 
     def checkout(self) -> None:
         # Mark the book as checked out, raise an exception if already checked out
-        if self.status == "Checked Out":
+        if self.status == "checked out":
             raise StatusException(
                 f"Error: The book '{self.title}' is already checked out."
             )
+
+        self.status = "checked out"
         pass
 
     def checkin(self) -> None:
         # Mark the book as available, raise an exception if already available
-        if self.status == "Checked In":
+        if self.status == "available":
             raise StatusException(
                 f"Error: The book '{self.title}' is already checked in."
             )
+
+        self.status = "available"
         pass
 
     def get_info(self) -> str:
         # Return the book's title, author, year_of_publication, and status as a formatted string
-        return f"{self.title} by {self.title} (Published: {self.year_of_publication}) - {self.status}"
+        return f"{self.title} by {self.author} (Published: {self.year_of_publication}) - {self.status}"
         pass
 
     def is_checked_out(self) -> bool:
         # Return True if the book is checked out, else False
-        if self.status == "Checked Out":
+        if self.status == "checked out":
             return True
+
+        return False
         pass
 
     @staticmethod
     def book_age(year_of_publication: int) -> int:
         # Return the age of the book based on the current year
+        return datetime.datetime.now().year - year_of_publication
         pass
