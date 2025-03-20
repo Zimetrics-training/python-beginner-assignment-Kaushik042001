@@ -9,10 +9,20 @@ Example:
 assert count_char_occurrences("hello world", "l") == 3
 assert count_char_occurrences("python", "o") == 1
 """
+
+
 # count_char_occurrences.py
 def count_char_occurrences(s, char):
     """
     This function takes a string and a character and returns how many times the character appears in the string.
     """
     # Your code here
+    count_char_occurrences = 0
+    split_text = s.split(" ")
+    for word in split_text:
+        for value in word:
+            if value == char:
+                count_char_occurrences += 1
+    return count_char_occurrences
+
     pass
