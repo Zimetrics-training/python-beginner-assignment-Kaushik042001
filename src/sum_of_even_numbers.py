@@ -9,10 +9,20 @@ Example:
 assert sum_of_even_numbers([1, 2, 3, 4, 5, 6]) == 12
 assert sum_of_even_numbers([10, 15, 20]) == 30
 """
+
+
 # sum_of_even_numbers.py
 def sum_of_even_numbers(lst):
     """
     This function takes a list of integers and returns the sum of all even numbers.
     """
     # Your code here
+    sum = 0
+    for number in lst:
+        if number % 2 == 0:
+            sum += number
+    return sum
     pass
+
+
+# print(sum_of_even_numbers([1, 2, 3, 4, 5, 6]))
