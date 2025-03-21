@@ -1,4 +1,5 @@
 from typing import List, Dict, Union
+
 """
 Problem Statement: Shopping Cart System
 You are tasked with building a simple shopping cart system to calculate the total cost of items in the cart, including tax and any applicable discounts. 
@@ -38,6 +39,7 @@ Function Specifications:
         The final price after calculating the total cost, applying any discount, and adding the tax. The result should be rounded to two decimal places.   
 """
 
+
 def calculate_total_cost(cart: List[Dict[str, Union[str, float]]]) -> float:
     """
     Function to calculate the total cost of items in the cart.
@@ -46,7 +48,11 @@ def calculate_total_cost(cart: List[Dict[str, Union[str, float]]]) -> float:
     """
     total_cost = 0.0
     # Your code to calculate total cost goes here
+    for item in cart:
+        total_cost += item["price"] * item["quantity"]
+
     return round(total_cost, 2)
+
 
 def apply_discount(total_cost: float) -> float:
     """
@@ -55,7 +61,11 @@ def apply_discount(total_cost: float) -> float:
     """
     discounted_cost = total_cost
     # Your code to apply discount goes here
+    if discounted_cost > 100:
+        return discounted_cost * (1 - 10 / 100)
+
     return round(discounted_cost, 2)
+
 
 def apply_tax(total_cost: float) -> float:
     """
@@ -64,7 +74,10 @@ def apply_tax(total_cost: float) -> float:
     """
     total_with_tax = total_cost
     # Your code to apply tax goes here
+    total_with_tax = total_with_tax * (1 + 8 / 100)
+
     return round(total_with_tax, 2)
+
 
 def calculate_final_price(cart: List[Dict[str, Union[str, float]]]) -> float:
     """
@@ -73,4 +86,8 @@ def calculate_final_price(cart: List[Dict[str, Union[str, float]]]) -> float:
     """
     # Use the above functions to calculate the final price
     final_price = 0.0
+    total_price = calculate_total_cost(cart)
+    discounted_price = apply_discount(total_price)
+    final_price = apply_tax(discounted_price)
+
     return round(final_price, 2)

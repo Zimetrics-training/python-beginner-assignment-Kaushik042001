@@ -20,30 +20,53 @@ Custom Exception:
 Define a custom exception InsufficientFundsError that will be raised when an account has insufficient funds for a withdrawal or transfer.
 """
 
+
 class InsufficientFundsError(Exception):
+    # Exception if withdrawal or transfer amount is greater than initial balance
+    def __init__(self, amount, message="Insufficient Amount!"):
+        self.amount = amount
+        self.message = message
+        super().__init__(self.message)
+
     pass
+
 
 class BankAccount:
     def __init__(self, account_holder: str, initial_balance: float):
-        # Initialize the bank account
+        self.account_holder = account_holder
+        self.initial_balance = initial_balance
         pass
 
     def deposit(self, amount: float):
-        # Deposit amount to the account
+        if amount <= 0:
+            raise ValueError("Deposit amount must be greater than zero.")
+        else:
+            self.initial_balance += amount
         pass
 
     def withdraw(self, amount: float):
-        # Withdraw amount from the account
+        if amount > self.initial_balance:
+            raise InsufficientFundsError(amount)
+        elif amount <= 0:
+            raise ValueError("Deposit amount must be greater than zero.")
+        else:
+            self.initial_balance -= amount
         pass
 
     def get_balance(self):
-        # Return current account balance
+        return self.initial_balance
         pass
 
     def transfer(self, recipient_account, amount: float):
-        # Transfer amount to another account
+        if amount > self.initial_balance:
+            raise InsufficientFundsError(amount)
+        elif amount <= 0:
+            raise ValueError("Deposit amount must be greater than zero.")
+        else:
+            self.initial_balance -= amount
+            recipient_account.deposit(amount)
         pass
 
     def __str__(self):
-        # Return the string representation of the account
+        return f"AccountHolder: {self.account_holder}, Balance: {self.initial_balance}"
         pass

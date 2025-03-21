@@ -12,10 +12,11 @@ Input: "  chErry aPPLE baNaNA  "
 Output: "Brown Fox Quick The"
 """
 
+
 def reformat_and_sort(s: str) -> str:
     # Step 1: Strip leading and trailing spaces
     s = s.strip()
-    
+
     # Step 2: Split the string into a list of words
     words = s.split()
 
@@ -30,3 +31,7 @@ def reformat_and_sort(s: str) -> str:
 
     # Step 6: Join the words back into a string with spaces in between
     return " ".join(words)
+
+
+# string = "  chErry aPPLE baNaNA kiWI  "
+# print(reformat_and_sort(string))
